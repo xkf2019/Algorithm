@@ -51,3 +51,29 @@ var rotate = function(nums, k) {
   reverse(nums, _k, nums.length -1)
   return nums
 };
+
+// 迭代
+var rotate = function(nums, k) {
+  const len = nums.length
+  const _k = k % len
+  if (len < 2 || k === 0) return nums
+  let begin = 0
+  let moveIndex = 0
+  let moveVal = nums[moveIndex]
+  let i = 0
+  
+  while (i < len) {
+      let nextMoveIndex = (moveIndex + _k) % len
+      let tpm = nums[nextMoveIndex]
+      nums[nextMoveIndex] = moveVal
+      moveVal = tpm
+      moveIndex = nextMoveIndex
+      if (moveIndex === begin) {
+          moveIndex++
+          begin = moveIndex
+          moveVal = nums[moveIndex]
+      }
+      i++
+  }
+  return nums
+};
