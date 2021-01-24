@@ -29,3 +29,17 @@ var minDepth = function (root) {
   }
   return lev
 };
+
+var minDepth = function(root) {
+  if (!root) return 0
+  if (!root.left && !root.right) return 1
+  let left = minDepth(root.left)
+  let right = minDepth(root.right)
+  if (!left) {
+      return right + 1
+  }
+  if (!right) {
+      return left + 1
+  }
+  return Math.min(left, right) + 1
+};
