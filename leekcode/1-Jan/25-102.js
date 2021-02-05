@@ -28,3 +28,16 @@ var levelOrder = function(root) {
   }
   return ans
 };
+
+var levelOrder = function(root) {
+  let ans = []
+  function helper(root, lev) {
+      if (!root) return
+      ans[lev] ||  (ans[lev] = [])
+      ans[lev].push(root.val)
+      helper(root.left, lev + 1)
+      helper(root.right, lev + 1)
+  }
+  helper(root, 0)
+  return ans
+};
