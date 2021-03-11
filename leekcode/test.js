@@ -1,12 +1,15 @@
-function Ninja() {
-  this.whoAmI = function() {
-    return this
-  }.bind(this)
+function * generator() {
+    console.log('before yied')
+    const a = yield 'first'
+    console.log('a', a)
+    const b = yield 'second'
+    console.log('b', b)
+    const c = yield 'third'
+    console.log('c', c)
 }
 
-var ninjia1 = new Ninja()
-var ninjia2 = {
-  whoAmI: ninjia1.whoAmI
-}
-console.log(ninjia1.whoAmI() === ninjia1)
-console.log(ninjia2.whoAmI() === ninjia2)
+const gen = generator('initial')
+console.log(gen.next('first param'))
+console.log(gen.next('second param'))
+console.log(gen.next('third param'))
+console.log(gen.next('forth param'))
