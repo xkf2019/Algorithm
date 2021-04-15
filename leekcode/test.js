@@ -1,15 +1,34 @@
-function * generator() {
-    console.log('before yied')
-    const a = yield 'first'
-    console.log('a', a)
-    const b = yield 'second'
-    console.log('b', b)
-    const c = yield 'third'
-    console.log('c', c)
-}
+const readline = require('readline')
+const fs = require('fs')
+const stack = []
+function readLines(input, func) {
+    var remaining = '';
+    input.on('data', function(data) {
+      remaining += data;
+      var index = remaining.indexOf('\n');
+      while (index > -1) {
+        var line = remaining.substring(0, index);
+        remaining = remaining.substring(index + 1);
+        
+        func(line);
+        index = remaining.indexOf('\n');
+      }
+   
+    });
+   
+    input.on('end', function() {
+      if (remaining.length > 0) {
+        func(remaining);
+      }
+    });
+  }
 
-const gen = generator('initial')
-console.log(gen.next('first param'))
-console.log(gen.next('second param'))
-console.log(gen.next('third param'))
-console.log(gen.next('forth param'))
+  let sum = 0
+  let i = 1
+  function func(data) {
+    data = data.replace('\r', '')
+    console.log(data.split(' '))
+  }
+   
+  var input = fs.createReadStream('data.txt');
+  readLines(input, func);
